@@ -1,13 +1,7 @@
 package com.workintech.ecommerce.util;
 
-import com.workintech.ecommerce.dto.CategoryResponse;
-import com.workintech.ecommerce.dto.ProductResponse;
-import com.workintech.ecommerce.dto.RoleResponse;
-import com.workintech.ecommerce.dto.UserResponse;
-import com.workintech.ecommerce.entity.Category;
-import com.workintech.ecommerce.entity.Product;
-import com.workintech.ecommerce.entity.Role;
-import com.workintech.ecommerce.entity.User;
+import com.workintech.ecommerce.dto.*;
+import com.workintech.ecommerce.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
