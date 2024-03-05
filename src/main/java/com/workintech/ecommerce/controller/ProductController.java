@@ -3,6 +3,7 @@ package com.workintech.ecommerce.controller;
 import com.workintech.ecommerce.dto.ProductResponse;
 import com.workintech.ecommerce.entity.Product;
 import com.workintech.ecommerce.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,12 @@ public class ProductController {
     }
 
     @PostMapping("/categoryId/{categoryId}")
-    public ProductResponse save(@PathVariable Long categoryId,@RequestBody Product product){
+    public ProductResponse save(@PathVariable Long categoryId,@Valid @RequestBody Product product){
         return productService.save(categoryId,product);
     }
 
     @PutMapping("/{id}")
-    public ProductResponse update(@PathVariable Long id,@RequestBody Product product){
+    public ProductResponse update(@PathVariable Long id,@Valid @RequestBody Product product){
         return productService.update(id,product);
     }
 
