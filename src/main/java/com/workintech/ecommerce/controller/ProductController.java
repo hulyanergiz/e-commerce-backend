@@ -26,9 +26,9 @@ public class ProductController {
         return productService.getById(id);
     }
 
-    @PostMapping("/categoryId/{categoryId}")
-    public ProductResponse save(@PathVariable Long categoryId,@Valid @RequestBody Product product){
-        return productService.save(categoryId,product);
+    @PostMapping("/categoryId/{categoryId}/storeId/{storeId}")
+    public ProductResponse save(@PathVariable Long categoryId,@PathVariable Long storeId,@Valid @RequestBody Product product){
+        return productService.save(categoryId,storeId,product);
     }
 
     @PutMapping("/{id}")
