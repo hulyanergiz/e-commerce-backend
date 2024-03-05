@@ -10,14 +10,15 @@ public class DtoConverter {
 
     public static ProductResponse productResponseConverter(Product product){
         return new ProductResponse(product.getName(), product.getDescription(), product.getPrice(), product.getStock(),
-                new CategoryResponse(product.getCategory().getTitle(),product.getCategory().getGender()), );
+                new CategoryResponse(product.getCategory().getTitle(),product.getCategory().getGender()),
+                new StoreResponse(product.getStore().getName(),product.getStore().getPhone(),product.getStore().getTaxNumber()));
     }
     public static List<ProductResponse> productResponseListConverter(List<Product> products){
         List<ProductResponse> responses=new ArrayList<>();
-        products.stream().forEach(product -> responses.add(new ProductResponse(product.getName(),
+        products.forEach(product -> responses.add(new ProductResponse(product.getName(),
                 product.getDescription(), product.getPrice(),product.getStock(),
                 new CategoryResponse(product.getCategory().getTitle(),product.getCategory().getGender()),
-                )));
+                new StoreResponse(product.getStore().getName(),product.getStore().getPhone(),product.getStore().getTaxNumber()))));
         return responses;
     }
 
@@ -27,7 +28,7 @@ public class DtoConverter {
 
     public static List<CategoryResponse> categoryResponseListConverter(List<Category> categories){
         List<CategoryResponse> responses=new ArrayList<>();
-        categories.stream().forEach(category -> responses.add(new CategoryResponse(category.getTitle(),category.getGender())));
+        categories.forEach(category -> responses.add(new CategoryResponse(category.getTitle(),category.getGender())));
         return responses;
     }
 
@@ -37,10 +38,20 @@ public class DtoConverter {
 
     public static List<RoleResponse> roleResponseListConverter(List<Role> roles){
         List<RoleResponse> responses=new ArrayList<>();
-        roles.stream().forEach(role -> responses.add(new RoleResponse(role.getName(),role.getCode())));
+        roles.forEach(role -> responses.add(new RoleResponse(role.getName(),role.getCode())));
         return responses;
     }
     public static UserResponse userResponseConverter(User user){
         return new UserResponse(user.getName(),user.getEmail());
+    }
+
+    public static StoreResponse storeResponseConverter(Store store){
+        return new StoreResponse(store.getName(), store.getPhone(), store.getTaxNumber());
+    }
+
+    public static List<StoreResponse> storeResponseListConverter(List<Store> stores){
+        List<StoreResponse> responses=new ArrayList<>();
+        stores.forEach(store -> responses.add(new StoreResponse(store.getName(),store.getPhone(), store.getTaxNumber())));
+        return responses;
     }
 }
