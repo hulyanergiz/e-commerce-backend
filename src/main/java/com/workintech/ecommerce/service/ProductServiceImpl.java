@@ -3,6 +3,7 @@ package com.workintech.ecommerce.service;
 import com.workintech.ecommerce.dto.ProductResponse;
 import com.workintech.ecommerce.entity.Category;
 import com.workintech.ecommerce.entity.Product;
+import com.workintech.ecommerce.entity.Store;
 import com.workintech.ecommerce.exception.EcommerceException;
 import com.workintech.ecommerce.repository.ProductRepository;
 import com.workintech.ecommerce.util.DtoConverter;
@@ -19,6 +20,8 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+
+    private final StoreService storeService;
 
     @Override
     public List<ProductResponse> findAll() {
@@ -40,10 +43,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductResponse save(Long categoryId,Product product) {
+    public ProductResponse save(Long categoryId,Long storeId,Product product) {
         Category category=categoryService.findById(categoryId);
         category.addProduct(product);
         product.setCategory(category);
+        Store store=storeService.findById(storeId);
+        store.addProduct(product);
+        product.setStore(store);
 
         return DtoConverter.productResponseConverter(productRepository.save(product));
     }
