@@ -13,7 +13,7 @@ public interface ProductService {
 
     ProductResponse getById(Long id);
 
-    ProductResponse save(Long categoryId, Product product);
+    ProductResponse save(Long categoryId, Long storeId,Product product);
 
     ProductResponse update(Long id,Product product);
 
