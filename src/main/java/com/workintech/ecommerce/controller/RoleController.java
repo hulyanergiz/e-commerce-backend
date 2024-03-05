@@ -3,6 +3,7 @@ package com.workintech.ecommerce.controller;
 import com.workintech.ecommerce.dto.RoleResponse;
 import com.workintech.ecommerce.entity.Role;
 import com.workintech.ecommerce.service.RoleService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class RoleController {
     }
 
     @PostMapping
-    public RoleResponse save(@RequestBody Role role){
+    public RoleResponse save(@Valid @RequestBody Role role){
         return roleService.save(role);
     }
 
