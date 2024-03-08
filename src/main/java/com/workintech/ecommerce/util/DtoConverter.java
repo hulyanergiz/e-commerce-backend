@@ -54,4 +54,22 @@ public class DtoConverter {
         stores.forEach(store -> responses.add(new StoreResponse(store.getName(),store.getPhone(), store.getTaxNumber())));
         return responses;
     }
+
+    public static CartItemResponse cartItemResponseConverter(CartItem cartItem){
+        return new CartItemResponse(new ProductResponse(cartItem.getProduct().getName(),cartItem.getProduct().getDescription(),
+                cartItem.getProduct().getPrice(),cartItem.getProduct().getStock(),
+                new CategoryResponse(cartItem.getProduct().getCategory().getTitle(),cartItem.getProduct().getCategory().getGender()),
+                new StoreResponse(cartItem.getProduct().getStore().getName(),cartItem.getProduct().getStore().getPhone(),
+                        cartItem.getProduct().getStore().getTaxNumber())),cartItem.getCount());
+    }
+
+    public static List<CartItemResponse> cartItemResponseListConverter(List<CartItem> cartItems){
+        List<CartItemResponse> responses=new ArrayList<>();
+        cartItems.forEach(cartItem->responses.add(new CartItemResponse(new ProductResponse(cartItem.getProduct().getName(),cartItem.getProduct().getDescription(),
+                cartItem.getProduct().getPrice(),cartItem.getProduct().getStock(),
+                new CategoryResponse(cartItem.getProduct().getCategory().getTitle(),cartItem.getProduct().getCategory().getGender()),
+                new StoreResponse(cartItem.getProduct().getStore().getName(),cartItem.getProduct().getStore().getPhone(),
+                        cartItem.getProduct().getStore().getTaxNumber())),cartItem.getCount())));
+        return responses;
+    }
 }
