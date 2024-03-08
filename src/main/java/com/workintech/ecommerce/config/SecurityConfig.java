@@ -51,6 +51,10 @@ public class SecurityConfig {
             auth.requestMatchers(HttpMethod.POST, "/store/**").hasAuthority("ADMIN");
             auth.requestMatchers(HttpMethod.PUT, "/store/**").permitAll();
             auth.requestMatchers(HttpMethod.DELETE, "/store/**").permitAll();
+            auth.requestMatchers(HttpMethod.GET, "/cart-items/**").permitAll();
+            auth.requestMatchers(HttpMethod.POST, "/cart-items/**").permitAll();
+            auth.requestMatchers(HttpMethod.DELETE, "/cart-items/**").permitAll();
+
             auth.requestMatchers("/signup/**").permitAll();
             auth.anyRequest().authenticated();
 
