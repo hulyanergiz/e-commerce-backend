@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -31,5 +33,11 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="card_id")
     private Card card;
+
+    @ManyToMany
+    @JoinTable(name="cart_item_order",schema = "ecommerce",
+            joinColumns =@JoinColumn(name="cart_item_id"),
+            inverseJoinColumns =@JoinColumn(name = "order_id"))
+    private List<CartItem> cartItems;
 
 }
