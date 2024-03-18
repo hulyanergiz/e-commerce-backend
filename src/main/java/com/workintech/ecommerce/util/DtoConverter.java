@@ -102,4 +102,13 @@ public class DtoConverter {
 
     }
 
+    public static List<OrderResponse> orderResponseListConverter(List<Order> orders){
+        List<OrderResponse> orderResponses=new ArrayList<>();
+        orders.forEach(order -> orderResponses.add(new OrderResponse(order.getId(), order.getOrderDate(), order.getPrice(),
+                new AddressResponse(order.getAddress().getName(),order.getAddress().getSurname(), order.getAddress().getPhone(),
+                        order.getAddress().getCity(),order.getAddress().getDistrict(),order.getAddress().getNeighborhood(),order.getAddress().getAddressDetails()
+                ))));
+        return orderResponses;
+    }
+
 }
