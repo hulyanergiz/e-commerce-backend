@@ -72,4 +72,10 @@ public class DtoConverter {
                         cartItem.getProduct().getStore().getTaxNumber())),cartItem.getCount())));
         return responses;
     }
+
+    public static AddressResponse addressResponseConverter(Address address){
+        return new AddressResponse(address.getName(), address.getSurname(), address.getPhone(), address.getCity(),
+                address.getDistrict(), address.getNeighborhood(), address.getAddressDetails());
+    }
+
 }
