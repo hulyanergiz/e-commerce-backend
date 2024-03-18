@@ -95,4 +95,11 @@ public class DtoConverter {
         return cardResponses;
     }
 
+    public static OrderResponse orderResponseConverter(Order order){
+        return new OrderResponse(order.getId(), order.getOrderDate(), order.getPrice(),
+                new AddressResponse(order.getAddress().getName(),order.getAddress().getSurname(), order.getAddress().getPhone(),
+                        order.getAddress().getCity(),order.getAddress().getDistrict(),order.getAddress().getNeighborhood(),order.getAddress().getAddressDetails()));
+
+    }
+
 }
