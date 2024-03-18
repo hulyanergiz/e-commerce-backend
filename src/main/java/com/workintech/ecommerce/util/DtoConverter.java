@@ -89,4 +89,10 @@ public class DtoConverter {
         return new CardResponse(card.getCardTitle());
     }
 
+    public static List<CardResponse> cardResponseListConverter(List<Card> cards){
+        List<CardResponse> cardResponses=new ArrayList<>();
+        cards.forEach(card -> cardResponses.add(new CardResponse(card.getCardTitle())));
+        return cardResponses;
+    }
+
 }
