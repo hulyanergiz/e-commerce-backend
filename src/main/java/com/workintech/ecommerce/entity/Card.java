@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -32,8 +37,13 @@ public class Card {
 
     private Integer cvv;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    private User user;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_card",schema = "ecommerce",
+            joinColumns = @JoinColumn(name="card_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id"))
+    private Set<User> users=new HashSet<>();
+
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
+    private List<Order> orders=new ArrayList<>();
 
 }
