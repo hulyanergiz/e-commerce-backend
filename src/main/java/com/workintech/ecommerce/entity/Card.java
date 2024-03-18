@@ -15,6 +15,9 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="card_title")
+    private String cardTitle;
+
     @Column(name="name_on_card")
     private String nameOnCard;
 
