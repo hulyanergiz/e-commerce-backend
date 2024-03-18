@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AddressService {
 
-    List<AddressResponse> findAll();
+    List<AddressResponse> findAllForUser(Long userId);
 
     Address findById(Long id);
 
@@ -15,7 +15,7 @@ public interface AddressService {
 
     AddressResponse save(Long userId,Address address);
 
-    AddressResponse delete(Long id);
+    AddressResponse delete(Long userId,Long id);
 
 
 }
