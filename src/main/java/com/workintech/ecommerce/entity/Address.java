@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -33,5 +36,9 @@ public class Address {
     @Column(name = "address_details")
     private String addressDetails;
 
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_address",schema = "ecommerce",
+            joinColumns = @JoinColumn(name="address_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id"))
+    private Set<User> users=new HashSet<>();
 }
