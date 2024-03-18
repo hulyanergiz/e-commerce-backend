@@ -85,4 +85,8 @@ public class DtoConverter {
         return addressResponses;
     }
 
+    public static CardResponse cardResponseConverter(Card card){
+        return new CardResponse(card.getCardTitle());
+    }
+
 }
