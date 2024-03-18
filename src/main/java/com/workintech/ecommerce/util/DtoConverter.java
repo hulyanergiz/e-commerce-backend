@@ -78,4 +78,11 @@ public class DtoConverter {
                 address.getDistrict(), address.getNeighborhood(), address.getAddressDetails());
     }
 
+    public static List<AddressResponse> addressResponseListConverter(List<Address> addresses){
+        List<AddressResponse> addressResponses=new ArrayList<>();
+        addresses.forEach(address -> addressResponses.add(new AddressResponse(address.getName(), address.getSurname(), address.getPhone(), address.getCity(),
+                address.getDistrict(), address.getNeighborhood(), address.getAddressDetails())));
+        return addressResponses;
+    }
+
 }
