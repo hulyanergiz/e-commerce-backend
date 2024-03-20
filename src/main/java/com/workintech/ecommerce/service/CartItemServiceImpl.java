@@ -28,7 +28,12 @@ public class CartItemServiceImpl implements CartItemService{
     public CartItem findById(Long id) {
         Optional<CartItem> optionalCartItem=cartItemRepository.findById(id);
         if(optionalCartItem.isPresent()){
-            return optionalCartItem.get();
+            CartItem cartItem = optionalCartItem.get();
+            Long userId = cartItem.getUser().getId();
+            Optional<CartItem> userCartItem = cartItemRepository.findCardItemForUser(userId, id);
+            if (userCartItem.isPresent()) {
+                return userCartItem.get();
+            }
         }
         throw new EcommerceException("Cart item is not found with id: "+id,HttpStatus.NOT_FOUND);
     }
@@ -44,7 +49,6 @@ public class CartItemServiceImpl implements CartItemService{
         cartItem.setUser(user);
         user.getCartItems().add(cartItem);
         return DtoConverter.cartItemResponseConverter(cartItemRepository.save(cartItem));
-
     }
 
     @Override
