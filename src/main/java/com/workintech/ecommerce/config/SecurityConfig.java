@@ -57,6 +57,9 @@ public class SecurityConfig {
             auth.requestMatchers(HttpMethod.GET, "/address/**").permitAll();
             auth.requestMatchers(HttpMethod.POST, "/address/**").permitAll();
             auth.requestMatchers(HttpMethod.DELETE, "/address/**").permitAll();
+            auth.requestMatchers(HttpMethod.GET, "/card/**").permitAll();
+            auth.requestMatchers(HttpMethod.POST, "/card/**").permitAll();
+            auth.requestMatchers(HttpMethod.DELETE, "/card/**").permitAll();
 
 
             auth.requestMatchers("/signup/**").permitAll();
