@@ -54,6 +54,10 @@ public class SecurityConfig {
             auth.requestMatchers(HttpMethod.GET, "/cart-items/**").permitAll();
             auth.requestMatchers(HttpMethod.POST, "/cart-items/**").permitAll();
             auth.requestMatchers(HttpMethod.DELETE, "/cart-items/**").permitAll();
+            auth.requestMatchers(HttpMethod.GET, "/address/**").permitAll();
+            auth.requestMatchers(HttpMethod.POST, "/address/**").permitAll();
+            auth.requestMatchers(HttpMethod.DELETE, "/address/**").permitAll();
+
 
             auth.requestMatchers("/signup/**").permitAll();
             auth.anyRequest().authenticated();
