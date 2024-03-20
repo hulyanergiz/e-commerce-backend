@@ -38,6 +38,20 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<CartItem> cartItems=new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_address",schema = "ecommerce",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="address_id"))
+    private Set<Address> addresses=new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_card",schema = "ecommerce",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="card_id"))
+    private Set<Card> cards=new HashSet<>();
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Order> orders=new ArrayList<>();
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

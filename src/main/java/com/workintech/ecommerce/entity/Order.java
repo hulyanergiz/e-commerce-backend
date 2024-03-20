@@ -34,7 +34,7 @@ public class Order {
     @JoinColumn(name="card_id")
     private Card card;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="cart_item_order",schema = "ecommerce",
             joinColumns =@JoinColumn(name="cart_item_id"),
             inverseJoinColumns =@JoinColumn(name = "order_id"))

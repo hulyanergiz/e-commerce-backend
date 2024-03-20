@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -41,4 +43,7 @@ public class Address {
             joinColumns = @JoinColumn(name="address_id"),
             inverseJoinColumns = @JoinColumn(name="user_id"))
     private Set<User> users=new HashSet<>();
+
+    @OneToMany(mappedBy = "address",cascade = CascadeType.ALL)
+    private List<Order> orders=new ArrayList<>();
 }
