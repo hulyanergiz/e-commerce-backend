@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -49,6 +52,10 @@ public class Product {
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="store_id")
     private Store store;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<CartItem> cartItems=new ArrayList<>();
+
 
 
 }
