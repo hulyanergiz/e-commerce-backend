@@ -2,6 +2,7 @@ package com.workintech.ecommerce.service;
 
 import com.workintech.ecommerce.dto.CartItemResponse;
 import com.workintech.ecommerce.entity.CartItem;
+import com.workintech.ecommerce.entity.Product;
 import com.workintech.ecommerce.entity.User;
 import com.workintech.ecommerce.exception.EcommerceException;
 import com.workintech.ecommerce.repository.CartItemRepository;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class CartItemServiceImpl implements CartItemService{
     private final CartItemRepository cartItemRepository;
     private final UserService userService;
+    private final ProductService productService;
 
     @Override
     public List<CartItemResponse> findAllForUser(Long userId) {
@@ -47,6 +49,9 @@ public class CartItemServiceImpl implements CartItemService{
     public CartItemResponse save(Long userId, CartItem cartItem) {
         User user=userService.findById(userId);
         cartItem.setUser(user);
+        Long productId=cartItem.getProduct().getId();
+        Product product=productService.findById(productId);
+        cartItem.setProduct(product);
         user.getCartItems().add(cartItem);
         return DtoConverter.cartItemResponseConverter(cartItemRepository.save(cartItem));
     }
