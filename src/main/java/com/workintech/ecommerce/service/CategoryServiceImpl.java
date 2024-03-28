@@ -7,9 +7,15 @@ import com.workintech.ecommerce.repository.CategoryRepository;
 import com.workintech.ecommerce.util.DtoConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -17,10 +23,21 @@ import java.util.Optional;
 public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
+    private final RestTemplate restTemplate;
+    private final String ecommerceApiUrl="https://workintech-fe-ecommerce.onrender.com/categories";
+
 
     @Override
     public List<CategoryResponse> findAll() {
-        return DtoConverter.categoryResponseListConverter(categoryRepository.findAll());
+        URI uri = UriComponentsBuilder.fromHttpUrl(ecommerceApiUrl)
+                .build()
+                .toUri();
+        ResponseEntity<CategoryResponse[]> responseEntity=restTemplate.getForEntity(uri,CategoryResponse[].class);
+        if(responseEntity.getStatusCode().is2xxSuccessful()){
+            return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
+        }else{
+            throw new EcommerceException("Categories could not found",HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
