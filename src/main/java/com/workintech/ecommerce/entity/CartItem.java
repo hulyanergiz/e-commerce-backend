@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -27,4 +30,10 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="cart_item_order",schema = "ecommerce",
+            joinColumns =@JoinColumn(name="order_id"),
+            inverseJoinColumns =@JoinColumn(name = "cart_item_id"))
+    private Set<Order> orders=new HashSet<>();
 }
