@@ -10,15 +10,15 @@ public class DtoConverter {
 
     public static ProductResponse productResponseConverter(Product product){
         return new ProductResponse(product.getName(), product.getDescription(), product.getPrice(), product.getStock(),
-                new CategoryResponse(product.getCategory().getTitle(),product.getCategory().getGender()),
-                new StoreResponse(product.getStore().getName(),product.getStore().getPhone(),product.getStore().getTaxNumber()));
+                categoryResponseConverter(product.getCategory()),
+                storeResponseConverter(product.getStore()));
     }
     public static List<ProductResponse> productResponseListConverter(List<Product> products){
         List<ProductResponse> responses=new ArrayList<>();
         products.forEach(product -> responses.add(new ProductResponse(product.getName(),
                 product.getDescription(), product.getPrice(),product.getStock(),
-                new CategoryResponse(product.getCategory().getTitle(),product.getCategory().getGender()),
-                new StoreResponse(product.getStore().getName(),product.getStore().getPhone(),product.getStore().getTaxNumber()))));
+                categoryResponseConverter(product.getCategory()),
+                storeResponseConverter(product.getStore()))));
         return responses;
     }
 
@@ -51,25 +51,23 @@ public class DtoConverter {
 
     public static List<StoreResponse> storeResponseListConverter(List<Store> stores){
         List<StoreResponse> responses=new ArrayList<>();
-        stores.forEach(store -> responses.add(new StoreResponse(store.getName(),store.getPhone(), store.getTaxNumber())));
+        stores.forEach(store -> responses.add(storeResponseConverter(store)));
         return responses;
     }
 
     public static CartItemResponse cartItemResponseConverter(CartItem cartItem){
         return new CartItemResponse(new ProductResponse(cartItem.getProduct().getName(),cartItem.getProduct().getDescription(),
                 cartItem.getProduct().getPrice(),cartItem.getProduct().getStock(),
-                new CategoryResponse(cartItem.getProduct().getCategory().getTitle(),cartItem.getProduct().getCategory().getGender()),
-                new StoreResponse(cartItem.getProduct().getStore().getName(),cartItem.getProduct().getStore().getPhone(),
-                        cartItem.getProduct().getStore().getTaxNumber())),cartItem.getCount());
+                categoryResponseConverter(cartItem.getProduct().getCategory()),
+                storeResponseConverter(cartItem.getProduct().getStore())),cartItem.getCount());
     }
 
     public static List<CartItemResponse> cartItemResponseListConverter(List<CartItem> cartItems){
         List<CartItemResponse> responses=new ArrayList<>();
         cartItems.forEach(cartItem->responses.add(new CartItemResponse(new ProductResponse(cartItem.getProduct().getName(),cartItem.getProduct().getDescription(),
                 cartItem.getProduct().getPrice(),cartItem.getProduct().getStock(),
-                new CategoryResponse(cartItem.getProduct().getCategory().getTitle(),cartItem.getProduct().getCategory().getGender()),
-                new StoreResponse(cartItem.getProduct().getStore().getName(),cartItem.getProduct().getStore().getPhone(),
-                        cartItem.getProduct().getStore().getTaxNumber())),cartItem.getCount())));
+                categoryResponseConverter(cartItem.getProduct().getCategory()),
+                storeResponseConverter(cartItem.getProduct().getStore())),cartItem.getCount())));
         return responses;
     }
 
@@ -96,18 +94,15 @@ public class DtoConverter {
     }
 
     public static OrderResponse orderResponseConverter(Order order){
-        return new OrderResponse(order.getId(), order.getOrderDate(), order.getPrice(),
-                new AddressResponse(order.getAddress().getName(),order.getAddress().getSurname(), order.getAddress().getPhone(),
-                        order.getAddress().getCity(),order.getAddress().getDistrict(),order.getAddress().getNeighborhood(),order.getAddress().getAddressDetails()));
+        return new OrderResponse(order.getId(), order.getOrderDate(), order.getPrice(),cartItemResponseListConverter(order.getCartItems()),
+                addressResponseConverter(order.getAddress()),cardResponseConverter(order.getCard()));
 
     }
 
     public static List<OrderResponse> orderResponseListConverter(List<Order> orders){
         List<OrderResponse> orderResponses=new ArrayList<>();
         orders.forEach(order -> orderResponses.add(new OrderResponse(order.getId(), order.getOrderDate(), order.getPrice(),
-                new AddressResponse(order.getAddress().getName(),order.getAddress().getSurname(), order.getAddress().getPhone(),
-                        order.getAddress().getCity(),order.getAddress().getDistrict(),order.getAddress().getNeighborhood(),order.getAddress().getAddressDetails()
-                ))));
+                cartItemResponseListConverter(order.getCartItems()),addressResponseConverter(order.getAddress()),cardResponseConverter(order.getCard()))));
         return orderResponses;
     }
 
