@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CardRepository extends JpaRepository<Card,Long> {
 
-    @Query("SELECT c FROM Card c WHERE c.user.id=:userId")
+    @Query("SELECT c FROM Card c RIGHT JOIN FETCH c.users u WHERE u.id=:userId")
     List<Card> findCardsByUserId(Long userId);
 }
